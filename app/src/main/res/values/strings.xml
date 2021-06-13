@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Area Code Blocker</string>
+    <string name="add_area_code">Add area code</string>
+    <string name="hint_area_code">Area code…</string>
+    <string name="button_save">Save</string>
+    <string name="empty_not_saved">Area code not saved because it is empty.</string>
+
 </resources>
