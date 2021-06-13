@@ -9,4 +9,10 @@ data class AreaCode(
 
     @PrimaryKey(autoGenerate = true)
     val id: Int? = null,
+
+    val action: Action? = Action.DISALLOW,
 )
+
+enum class Action {
+    DISALLOW, REJECT, SILENCE
+}
