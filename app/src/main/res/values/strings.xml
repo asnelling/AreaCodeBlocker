@@ -5,5 +5,8 @@
     <string name="button_save">Save</string>
     <string name="empty_not_saved">Area code not saved because it is empty.</string>
     <string name="remove">Remove</string>
+    <string name="call_block">Block call</string>
+    <string name="call_reject">Reject call</string>
+    <string name="call_silence">Silence call</string>
 
 </resources>
