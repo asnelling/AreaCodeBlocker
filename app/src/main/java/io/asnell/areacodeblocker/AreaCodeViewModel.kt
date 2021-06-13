@@ -1,5 +1,6 @@
 package io.asnell.areacodeblocker
 
+import android.util.Log
 import androidx.lifecycle.*
 import kotlinx.coroutines.launch
 
@@ -8,6 +9,15 @@ class AreaCodeViewModel(private val repository: AreaCodeRepository) : ViewModel(
 
     fun insert(areaCode: AreaCode) = viewModelScope.launch {
         repository.insert(areaCode)
+    }
+
+    fun delete(areaCode: AreaCode) = viewModelScope.launch {
+        Log.d(TAG, "deleting area code: $areaCode")
+        repository.delete(areaCode)
+    }
+
+    companion object {
+        private const val TAG = "AreaCodeViewModel"
     }
 }
 

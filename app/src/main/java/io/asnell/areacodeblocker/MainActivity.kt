@@ -2,6 +2,7 @@ package io.asnell.areacodeblocker
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -20,6 +21,11 @@ class MainActivity : AppCompatActivity() {
 
         val recyclerView = findViewById<RecyclerView>(R.id.recyclerview)
         val adapter = AreaCodeListAdapter()
+        adapter.removeListener = AreaCodeListAdapter.AreaCodeRemoveListener { areaCode ->
+            Log.d(TAG, "removing area code ${areaCode.id}: ${areaCode.code}")
+            areaCodeViewModel.delete(areaCode)
+        }
+
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(this)
 
@@ -49,5 +55,6 @@ class MainActivity : AppCompatActivity() {
 
     companion object {
         private const val NEW_AREA_CODE_REQUEST_CODE = 1
+        private const val TAG = "MainActivity"
     }
 }

@@ -1,6 +1,7 @@
 package io.asnell.areacodeblocker
 
 import androidx.room.Dao
+import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
 import kotlinx.coroutines.flow.Flow
@@ -15,4 +16,7 @@ interface AreaCodeDao {
 
     @Query("DELETE FROM area_code")
     suspend fun deleteAll()
+
+    @Delete
+    suspend fun delete(areaCode: AreaCode)
 }

@@ -4,5 +4,6 @@
     <string name="hint_area_code">Area code…</string>
     <string name="button_save">Save</string>
     <string name="empty_not_saved">Area code not saved because it is empty.</string>
+    <string name="remove">Remove</string>
 
 </resources>

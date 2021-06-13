@@ -1,14 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="48dp"
+    android:orientation="horizontal"
+    android:paddingStart="16dp"
+    android:paddingEnd="16dp">
 
     <TextView
         android:id="@+id/areaCode"
-        style="@style/area_code_title"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="@android:color/holo_orange_light" />
+        android:layout_gravity="center_vertical"
+        android:layout_weight="1"
+        android:textAppearance="@android:style/TextAppearance.Large"
+        tools:text="383" />
+
+    <ImageButton
+        android:id="@+id/remove"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_gravity="center_vertical"
+        android:contentDescription="@string/remove"
+        app:srcCompat="@drawable/ic_baseline_delete_forever_24" />
 
 </LinearLayout>
