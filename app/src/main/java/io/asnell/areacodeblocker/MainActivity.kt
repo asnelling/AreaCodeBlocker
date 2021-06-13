@@ -24,7 +24,7 @@ class MainActivity : AppCompatActivity() {
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(this)
 
-        areaCodeViewModel.allAreaCodes.observe(this, Observer { areaCodes ->
+        areaCodeViewModel.allAreaCodes.observe(this, { areaCodes ->
             areaCodes?.let { adapter.submitList(it) }
         })
 
