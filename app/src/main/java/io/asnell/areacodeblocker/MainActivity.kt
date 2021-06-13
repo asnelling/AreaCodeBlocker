@@ -44,10 +44,10 @@ class MainActivity : AppCompatActivity() {
         super.onActivityResult(requestCode, resultCode, data)
 
         if (requestCode == NEW_AREA_CODE_REQUEST_CODE && resultCode == RESULT_OK) {
-            data?.getStringExtra(NewAreaCodeActivity.EXTRA_REPLY)?.let {
-                val areaCode = AreaCode(it)
-                areaCodeViewModel.insert(areaCode)
-            }
+            val areaCodeNums = data?.getStringExtra(NewAreaCodeActivity.EXTRA_REPLY)!!
+            val action = data.getStringExtra(NewAreaCodeActivity.EXTRA_ACTION)!!
+            val areaCode = AreaCode(areaCodeNums, action = Action.valueOf(action))
+            areaCodeViewModel.insert(areaCode)
         } else {
             Toast.makeText(applicationContext, R.string.empty_not_saved, Toast.LENGTH_LONG).show()
         }

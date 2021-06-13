@@ -15,7 +15,7 @@
         android:layout_gravity="center_vertical"
         android:layout_weight="0"
         app:srcCompat="@drawable/ic_baseline_block_24"
-        android:contentDescription="@string/call_block" />
+        android:contentDescription="@string/call_disallow" />
 
     <TextView
         android:id="@+id/areaCode"

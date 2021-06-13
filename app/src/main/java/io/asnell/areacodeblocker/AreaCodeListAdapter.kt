@@ -48,7 +48,7 @@ class AreaCodeListAdapter : ListAdapter<AreaCode, AreaCodeListAdapter.AreaCodeVi
             when(areaCode.action) {
                 Action.DISALLOW -> {
                     actionImage.setImageResource(R.drawable.ic_baseline_block_24)
-                    actionImage.contentDescription = itemView.resources.getString(R.string.call_block)
+                    actionImage.contentDescription = itemView.resources.getString(R.string.call_disallow)
                 }
                 Action.REJECT -> {
                     actionImage.setImageResource(R.drawable.ic_baseline_phone_missed_24)
