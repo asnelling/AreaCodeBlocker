@@ -8,7 +8,7 @@ import androidx.sqlite.db.SupportSQLiteDatabase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
-@Database(entities = [AreaCode::class], version = 1, exportSchema = false)
+@Database(entities = [AreaCode::class], version = 1)
 abstract class AreaCodeRoomDatabase : RoomDatabase() {
     abstract fun areaCodeDao(): AreaCodeDao
 
