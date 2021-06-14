@@ -4,6 +4,7 @@ import android.telecom.Call
 import android.telecom.Call.Details.DIRECTION_INCOMING
 import android.telecom.CallScreeningService
 import android.util.Log
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.asLiveData
 import io.asnell.areacodeblocker.Action
@@ -11,9 +12,11 @@ import io.asnell.areacodeblocker.AreaCode
 import io.asnell.areacodeblocker.AreaCodesApplication
 
 class AreaCodeScreeningService : CallScreeningService() {
-    private val blocklist = (application as AreaCodesApplication).repository
-        .allAreaCodes
-        .asLiveData()
+    private val blocklist: LiveData<List<AreaCode>> by lazy {
+        (application as AreaCodesApplication).repository
+            .allAreaCodes
+            .asLiveData()
+    }
 
     private var blocklistCache: List<AreaCode> = emptyList()
     private val repoObserver: Observer<List<AreaCode>> = Observer { list ->
