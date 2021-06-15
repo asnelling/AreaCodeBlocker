@@ -8,6 +8,9 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
+import android.view.View.INVISIBLE
+import android.view.View.VISIBLE
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -24,6 +27,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        val emptyView = findViewById<TextView>(R.id.empty_view)
         val recyclerView = findViewById<RecyclerView>(R.id.recyclerview)
         val adapter = AreaCodeListAdapter()
         adapter.removeListener = AreaCodeListAdapter.AreaCodeRemoveListener { areaCode ->
@@ -36,6 +40,11 @@ class MainActivity : AppCompatActivity() {
 
         areaCodeViewModel.allAreaCodes.observe(this, { areaCodes ->
             areaCodes?.let { adapter.submitList(it) }
+            if (areaCodes.isEmpty()) {
+                emptyView.visibility = VISIBLE
+            } else {
+                emptyView.visibility = INVISIBLE
+            }
         })
 
         val fab = findViewById<FloatingActionButton>(R.id.fab)

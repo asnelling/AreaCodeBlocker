@@ -10,5 +10,6 @@
     <string name="call_silence">Silence call</string>
     <string name="action">Action</string>
     <string name="action_select_service">Select screening service</string>
+    <string name="blocklist_empty">Blocklist is empty</string>
 
 </resources>
