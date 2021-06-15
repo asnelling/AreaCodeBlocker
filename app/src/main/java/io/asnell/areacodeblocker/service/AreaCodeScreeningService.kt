@@ -46,6 +46,7 @@ class AreaCodeScreeningService : CallScreeningService() {
                     }
                     Action.REJECT -> {
                         Log.d(TAG, "rejecting call")
+                        response.setDisallowCall(true)
                         response.setRejectCall(true)
                     }
                     Action.SILENCE -> {
