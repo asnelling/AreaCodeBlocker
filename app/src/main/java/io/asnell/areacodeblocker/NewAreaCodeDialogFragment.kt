@@ -3,17 +3,13 @@ package io.asnell.areacodeblocker
 import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.EditText
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.os.bundleOf
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.google.android.material.textfield.MaterialAutoCompleteTextView
 
 class NewAreaCodeDialogFragment : BottomSheetDialogFragment() {
     override fun onCreateView(
@@ -27,31 +23,64 @@ class NewAreaCodeDialogFragment : BottomSheetDialogFragment() {
             false
         )
 
-        val actionsDropdownView: MaterialAutoCompleteTextView = view
-            .findViewById(R.id.actions_dropdown)
-        actionsDropdownView.setAdapter(ArrayAdapter.createFromResource(
-            view.context,
-            R.array.call_actions,
-            android.R.layout.simple_dropdown_item_1line))
+//        val actionsDropdownView: MaterialAutoCompleteTextView = view
+//            .findViewById(R.id.actions_dropdown)
+//        actionsDropdownView.setAdapter(ArrayAdapter.createFromResource(
+//            view.context,
+//            R.array.call_actions,
+//            android.R.layout.simple_dropdown_item_1line))
 
         val editAreaCodeView: EditText = view.findViewById(R.id.edit_area_code)
-        view.findViewById<Button>(R.id.button_save)
+        view.findViewById<Button>(R.id.button_block)
             .setOnClickListener {
-                val replyIntent = Intent()
                 if (TextUtils.isEmpty(editAreaCodeView.text)) {
                     // handle validation error
                 } else {
                     val areaCode = editAreaCodeView.text.toString()
-                    val action = actionsDropdownView.text.toString().uppercase()
+                    val action = Action.DISALLOW.name
                     val result = bundleOf(
                         "areaCode" to areaCode,
                         "action" to action,
                     )
                     parentFragmentManager.setFragmentResult("new_area_code",
                         result)
+                    dismiss()
                 }
             }
 
+        view.findViewById<Button>(R.id.button_reject)
+            .setOnClickListener {
+                if (TextUtils.isEmpty(editAreaCodeView.text)) {
+                    // handle validation error
+                } else {
+                    val areaCode = editAreaCodeView.text.toString()
+                    val action = Action.REJECT.name
+                    val result = bundleOf(
+                        "areaCode" to areaCode,
+                        "action" to action,
+                    )
+                    parentFragmentManager.setFragmentResult("new_area_code",
+                        result)
+                    dismiss()
+                }
+            }
+
+        view.findViewById<Button>(R.id.button_silence)
+            .setOnClickListener {
+                if (TextUtils.isEmpty(editAreaCodeView.text)) {
+                    // handle validation error
+                } else {
+                    val areaCode = editAreaCodeView.text.toString()
+                    val action = Action.SILENCE.name
+                    val result = bundleOf(
+                        "areaCode" to areaCode,
+                        "action" to action,
+                    )
+                    parentFragmentManager.setFragmentResult("new_area_code",
+                        result)
+                    dismiss()
+                }
+            }
 
         return view
     }

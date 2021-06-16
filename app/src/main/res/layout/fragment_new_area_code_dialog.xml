@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="16dp"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     tools:context=".NewAreaCodeDialogFragment">
@@ -14,31 +16,43 @@
         android:fontFamily="sans-serif-light"
         android:hint="@string/hint_area_code"
         android:inputType="textAutoComplete"
-        android:layout_margin="@dimen/big_padding"
         android:textSize="18sp"
         android:importantForAutofill="no" />
 
-    <com.google.android.material.textfield.TextInputLayout
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+    <Button
+        android:id="@+id/button_block"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:hint="@string/action">
-
-        <com.google.android.material.textfield.MaterialAutoCompleteTextView
-            android:id="@+id/actions_dropdown"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-    </com.google.android.material.textfield.TextInputLayout>
+        android:layout_marginTop="8dp"
+        android:text="@string/block"
+        android:textColor="#cc0000"
+        app:icon="@drawable/ic_baseline_block_24"
+        app:iconTint="#cc0000"
+        app:strokeColor="#cc0000" />
 
     <Button
-        android:id="@+id/button_save"
+        android:id="@+id/button_reject"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/purple_500"
-        android:text="@string/button_save"
-        android:layout_margin="@dimen/big_padding"
-        android:textColor="@color/buttonLabel" />
+        android:layout_marginTop="8dp"
+        android:text="@string/reject"
+        android:textColor="#ff9900"
+        app:icon="@drawable/ic_baseline_phone_missed_24"
+        app:iconTint="#ff9900"
+        app:strokeColor="#ff9900" />
+
+    <Button
+        android:id="@+id/button_silence"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/silence"
+        android:textColor="#ffcc00"
+        app:icon="@drawable/ic_baseline_notifications_off_24"
+        app:iconTint="#ffcc00"
+        app:strokeColor="#ffcc00" />
 
 </LinearLayout>

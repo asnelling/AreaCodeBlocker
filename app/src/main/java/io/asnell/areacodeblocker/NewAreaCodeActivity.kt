@@ -20,7 +20,7 @@ class NewAreaCodeActivity : AppCompatActivity() {
         val actionsDropdownView = findViewById<MaterialAutoCompleteTextView>(R.id.actions_dropdown)
         actionsDropdownView.setAdapter(ArrayAdapter.createFromResource(this, R.array.call_actions, android.R.layout.simple_dropdown_item_1line))
 
-        val button = findViewById<Button>(R.id.button_save)
+        val button = findViewById<Button>(R.id.button_block)
         button.setOnClickListener {
             val replyIntent = Intent()
             if (TextUtils.isEmpty(editAreaCodeView.text)) {
