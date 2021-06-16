@@ -1,4 +1,4 @@
-package io.asnell.areacodeblocker
+package io.asnell.areacodeblocker.db
 
 import android.content.Context
 import androidx.room.AutoMigration
@@ -10,14 +10,16 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
 @Database(
-    entities = [AreaCode::class],
-    version = 2,
+    entities = [AreaCode::class, History::class],
+    version = 3,
     autoMigrations = [
-        AutoMigration ( from = 1, to = 2)
+        AutoMigration ( from = 1, to = 2),
+        AutoMigration(from = 2, to = 3),
     ],
 )
 abstract class AreaCodeRoomDatabase : RoomDatabase() {
     abstract fun areaCodeDao(): AreaCodeDao
+    abstract fun historyDao(): HistoryDao
 
     private class AreaCodeDatabaseCallback(private val scope: CoroutineScope) :
         RoomDatabase.Callback() {

@@ -1,4 +1,4 @@
-package io.asnell.areacodeblocker
+package io.asnell.areacodeblocker.db
 
 import androidx.room.Dao
 import androidx.room.Delete

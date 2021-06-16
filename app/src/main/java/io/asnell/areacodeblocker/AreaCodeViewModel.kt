@@ -2,9 +2,10 @@ package io.asnell.areacodeblocker
 
 import android.util.Log
 import androidx.lifecycle.*
+import io.asnell.areacodeblocker.db.AreaCode
 import kotlinx.coroutines.launch
 
-class AreaCodeViewModel(private val repository: AreaCodeRepository) : ViewModel() {
+class AreaCodeViewModel(private val repository: Repository) : ViewModel() {
     val allAreaCodes: LiveData<List<AreaCode>> = repository.allAreaCodes.asLiveData()
 
     fun insert(areaCode: AreaCode) = viewModelScope.launch {
@@ -21,7 +22,7 @@ class AreaCodeViewModel(private val repository: AreaCodeRepository) : ViewModel(
     }
 }
 
-class AreaCodeViewModelFactory(private val repository: AreaCodeRepository) : ViewModelProvider.Factory {
+class AreaCodeViewModelFactory(private val repository: Repository) : ViewModelProvider.Factory {
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(AreaCodeViewModel::class.java)) {
             @Suppress("UNCHECKED_CAST")

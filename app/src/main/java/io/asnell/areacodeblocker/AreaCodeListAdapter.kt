@@ -10,6 +10,8 @@ import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import io.asnell.areacodeblocker.db.Action
+import io.asnell.areacodeblocker.db.AreaCode
 
 class AreaCodeListAdapter : ListAdapter<AreaCode, AreaCodeListAdapter.AreaCodeViewHolder>(AreaCodesComparator()) {
     var removeListener = AreaCodeRemoveListener {  }

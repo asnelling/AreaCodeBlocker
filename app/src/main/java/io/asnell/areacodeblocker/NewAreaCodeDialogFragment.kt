@@ -1,6 +1,5 @@
 package io.asnell.areacodeblocker
 
-import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
 import android.view.LayoutInflater
@@ -10,6 +9,7 @@ import android.widget.Button
 import android.widget.EditText
 import androidx.core.os.bundleOf
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import io.asnell.areacodeblocker.db.Action
 
 class NewAreaCodeDialogFragment : BottomSheetDialogFragment() {
     override fun onCreateView(
