@@ -49,8 +49,18 @@ class MainActivity : AppCompatActivity() {
 
         val fab = findViewById<FloatingActionButton>(R.id.fab)
         fab.setOnClickListener {
-            val intent = Intent(this@MainActivity, NewAreaCodeActivity::class.java)
-            startActivityForResult(intent, NEW_AREA_CODE_REQUEST_CODE)
+            val fragment = NewAreaCodeDialogFragment()
+            fragment.show(supportFragmentManager, NEW_AREA_CODE_FRAGMENT_TAG)
+        }
+
+        supportFragmentManager.setFragmentResultListener(
+            NEW_AREA_CODE_REQUEST_KEY, this) { requestKey, bundle ->
+            val areaCodeNums = bundle.getString("areaCode")!!
+            val action = bundle.getString("action")!!
+            val areaCode = AreaCode(
+                areaCodeNums,
+                action = Action.valueOf(action))
+            areaCodeViewModel.insert(areaCode)
         }
     }
 
@@ -58,16 +68,6 @@ class MainActivity : AppCompatActivity() {
         super.onActivityResult(requestCode, resultCode, data)
 
         when (requestCode) {
-            NEW_AREA_CODE_REQUEST_CODE -> {
-                if (resultCode == RESULT_OK) {
-                    val areaCodeNums = data?.getStringExtra(NewAreaCodeActivity.EXTRA_REPLY)!!
-                    val action = data.getStringExtra(NewAreaCodeActivity.EXTRA_ACTION)!!
-                    val areaCode = AreaCode(areaCodeNums, action = Action.valueOf(action))
-                    areaCodeViewModel.insert(areaCode)
-                } else {
-                    Toast.makeText(applicationContext, R.string.empty_not_saved, Toast.LENGTH_LONG).show()
-                }
-            }
             SELECT_SERVICE_REQUEST_CODE -> {
                 if (resultCode == RESULT_OK) {
                     Log.d(TAG, "call screening active")
@@ -100,6 +100,8 @@ class MainActivity : AppCompatActivity() {
     companion object {
         private const val NEW_AREA_CODE_REQUEST_CODE = 1
         private const val SELECT_SERVICE_REQUEST_CODE = 2
+        private const val NEW_AREA_CODE_REQUEST_KEY = "new_area_code"
+        private const val NEW_AREA_CODE_FRAGMENT_TAG = "new_area_code"
         private const val TAG = "MainActivity"
     }
 }
