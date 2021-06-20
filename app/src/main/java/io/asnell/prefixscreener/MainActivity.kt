@@ -23,6 +23,16 @@ import io.asnell.prefixscreener.db.Action
 import io.asnell.prefixscreener.db.Prefix
 
 class MainActivity : AppCompatActivity() {
+    private val becomeCallScreener =
+        registerForActivityResult(BecomeCallScreener()) { result ->
+            if (result) {
+                findViewById<View>(R.id.permission_notice).visibility = GONE
+                debug(TAG, "call screening active")
+            } else {
+                debug(TAG, "call screening NOT active")
+            }
+        }
+
     private val prefixViewModel: PrefixViewModel by viewModels {
         PrefixViewModelFactory(
             (application as PrefixScreenerApplication).repository
@@ -83,29 +93,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         findViewById<Button>(R.id.set_default_screener).setOnClickListener {
-            val roleManager = getSystemService(RoleManager::class.java)
-            val intent = roleManager
-                .createRequestRoleIntent(ROLE_CALL_SCREENING)
-            startActivityForResult(intent, SELECT_SERVICE_REQUEST_CODE)
-        }
-    }
-
-    override fun onActivityResult(
-        requestCode: Int,
-        resultCode: Int,
-        data: Intent?
-    ) {
-        super.onActivityResult(requestCode, resultCode, data)
-
-        when (requestCode) {
-            SELECT_SERVICE_REQUEST_CODE -> {
-                if (resultCode == RESULT_OK) {
-                    findViewById<View>(R.id.permission_notice).visibility = GONE
-                    debug(TAG, "call screening active")
-                } else {
-                    debug(TAG, "call screening NOT active")
-                }
-            }
+            becomeCallScreener.launch(null)
         }
     }
 
@@ -135,7 +123,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     companion object {
-        private const val SELECT_SERVICE_REQUEST_CODE = 2
         private const val NEW_PREFIX_REQUEST_KEY = "new_prefix"
         private const val NEW_PREFIX_FRAGMENT_TAG = "new_prefix"
         private const val TAG = "MainActivity"
