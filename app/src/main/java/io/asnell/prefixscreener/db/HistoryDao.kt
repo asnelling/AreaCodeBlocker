@@ -1,4 +1,4 @@
-package io.asnell.areacodeblocker.db
+package io.asnell.prefixscreener.db
 
 import androidx.room.Dao
 import androidx.room.Insert

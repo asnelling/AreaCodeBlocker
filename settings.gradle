@@ -1,2 +1,2 @@
-rootProject.name = "Area Code Blocker"
+rootProject.name = "Prefix Screener"
 include ':app'

@@ -1,14 +1,14 @@
-package io.asnell.areacodeblocker
+package io.asnell.prefixscreener
 
 import android.app.Application
-import io.asnell.areacodeblocker.db.AreaCodeRoomDatabase
+import io.asnell.prefixscreener.db.AppDatabase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.SupervisorJob
 
-class AreaCodesApplication : Application() {
+class PrefixScreenerApplication : Application() {
     val applicationScope = CoroutineScope(SupervisorJob())
     private val database by lazy {
-        AreaCodeRoomDatabase.getDatabase(
+        AppDatabase.getDatabase(
             this,
             applicationScope
         )

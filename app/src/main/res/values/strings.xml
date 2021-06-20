@@ -1,9 +1,9 @@
 <resources>
-    <string name="app_name">Area Code Blocker</string>
-    <string name="add_area_code">Add area code</string>
-    <string name="hint_area_code">Area code…</string>
+    <string name="app_name">Prefix Screener</string>
+    <string name="add_prefix">Add prefix</string>
+    <string name="hint_prefix">Prefix (with country code)…</string>
     <string name="button_save">Save</string>
-    <string name="empty_not_saved">Area code not saved because it is empty.</string>
+    <string name="empty_not_saved">Prefix not saved because it is empty.</string>
     <string name="remove">Remove</string>
     <string name="call_disallow">Disallow call</string>
     <string name="call_reject">Reject call</string>
@@ -14,7 +14,7 @@
     <string name="block">Block</string>
     <string name="reject">Reject</string>
     <string name="silence">Silence</string>
-    <string name="message_set_screener">Set Area Code Blocker as your default call screener to activate screening.</string>
+    <string name="message_set_screener">Set Prefix Screener as your default call screener to activate.</string>
     <string name="dismiss">Dismiss</string>
     <string name="set_as_default">Set as default</string>
     <string name="prefix_plus">+</string>

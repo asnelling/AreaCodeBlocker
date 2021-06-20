@@ -1,16 +1,16 @@
 {
   "formatVersion": 1,
   "database": {
-    "version": 3,
-    "identityHash": "5579785ea4d3150c9e844ab1c385b125",
+    "version": 1,
+    "identityHash": "e339ab80dc482b36cc654809407fa9f1",
     "entities": [
       {
-        "tableName": "area_code",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`code` TEXT NOT NULL, `id` INTEGER PRIMARY KEY AUTOINCREMENT, `action` TEXT)",
+        "tableName": "Prefix",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`number` TEXT NOT NULL, `id` INTEGER PRIMARY KEY AUTOINCREMENT, `action` TEXT)",
         "fields": [
           {
-            "fieldPath": "code",
-            "columnName": "code",
+            "fieldPath": "number",
+            "columnName": "number",
             "affinity": "TEXT",
             "notNull": true
           },
@@ -78,7 +78,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '5579785ea4d3150c9e844ab1c385b125')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'e339ab80dc482b36cc654809407fa9f1')"
     ]
   }
 }

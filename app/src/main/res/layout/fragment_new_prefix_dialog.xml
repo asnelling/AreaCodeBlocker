@@ -6,7 +6,7 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:padding="16dp"
-    tools:context=".NewAreaCodeDialogFragment">
+    tools:context="io.asnell.prefixscreener.NewPrefixDialogFragment">
 
     <TextView
         android:id="@+id/textView2"
@@ -14,11 +14,11 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:text="@string/prefix_plus"
-        app:layout_constraintBaseline_toBaselineOf="@+id/edit_area_code"
+        app:layout_constraintBaseline_toBaselineOf="@+id/edit_prefix"
         app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
-        android:id="@+id/edit_area_code"
+        android:id="@+id/edit_prefix"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
@@ -26,7 +26,7 @@
         android:layout_marginBottom="8dp"
         android:focusedByDefault="false"
         android:fontFamily="sans-serif-light"
-        android:hint="@string/hint_area_code"
+        android:hint="@string/hint_prefix"
         android:importantForAutofill="no"
         android:inputType="number"
         android:minHeight="@dimen/min_height"

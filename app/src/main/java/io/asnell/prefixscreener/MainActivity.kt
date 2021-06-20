@@ -1,4 +1,4 @@
-package io.asnell.areacodeblocker
+package io.asnell.prefixscreener
 
 import android.app.role.RoleManager
 import android.app.role.RoleManager.ROLE_CALL_SCREENING
@@ -17,12 +17,12 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import io.asnell.areacodeblocker.db.Action
-import io.asnell.areacodeblocker.db.AreaCode
+import io.asnell.prefixscreener.db.Action
+import io.asnell.prefixscreener.db.Prefix
 
 class MainActivity : AppCompatActivity() {
-    private val areaCodeViewModel: AreaCodeViewModel by viewModels {
-        AreaCodeViewModelFactory((application as AreaCodesApplication).repository)
+    private val prefixViewModel: PrefixViewModel by viewModels {
+        PrefixViewModelFactory((application as PrefixScreenerApplication).repository)
     }
 
     override fun onStart() {
@@ -39,18 +39,18 @@ class MainActivity : AppCompatActivity() {
 
         val emptyView = findViewById<TextView>(R.id.empty_view)
         val recyclerView = findViewById<RecyclerView>(R.id.recyclerview)
-        val adapter = AreaCodeListAdapter()
-        adapter.removeListener = AreaCodeListAdapter.AreaCodeRemoveListener { areaCode ->
-            Log.d(TAG, "removing area code ${areaCode.id}: ${areaCode.code}")
-            areaCodeViewModel.delete(areaCode)
+        val adapter = PrefixListAdapter()
+        adapter.removeListener = PrefixListAdapter.RemovePrefixListener { prefix ->
+            Log.d(TAG, "removing prefix ${prefix.id}: ${prefix.number}")
+            prefixViewModel.delete(prefix)
         }
 
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(this)
 
-        areaCodeViewModel.allAreaCodes.observe(this, { areaCodes ->
-            areaCodes?.let { adapter.submitList(it) }
-            if (areaCodes.isEmpty()) {
+        prefixViewModel.allPrefixes.observe(this, { prefixes ->
+            prefixes?.let { adapter.submitList(it) }
+            if (prefixes.isEmpty()) {
                 emptyView.visibility = VISIBLE
             } else {
                 emptyView.visibility = GONE
@@ -59,18 +59,18 @@ class MainActivity : AppCompatActivity() {
 
         val fab = findViewById<FloatingActionButton>(R.id.fab)
         fab.setOnClickListener {
-            val fragment = NewAreaCodeDialogFragment()
-            fragment.show(supportFragmentManager, NEW_AREA_CODE_FRAGMENT_TAG)
+            val fragment = NewPrefixDialogFragment()
+            fragment.show(supportFragmentManager, NEW_PREFIX_FRAGMENT_TAG)
         }
 
         supportFragmentManager.setFragmentResultListener(
-            NEW_AREA_CODE_REQUEST_KEY, this) { requestKey, bundle ->
-            val areaCodeNums = bundle.getString("areaCode")!!
+            NEW_PREFIX_REQUEST_KEY, this) { requestKey, bundle ->
+            val prefixNums = bundle.getString("prefix")!!
             val action = bundle.getString("action")!!
-            val areaCode = AreaCode(
-                areaCodeNums,
+            val prefix = Prefix(
+                prefixNums,
                 action = Action.valueOf(action))
-            areaCodeViewModel.insert(areaCode)
+            prefixViewModel.insert(prefix)
         }
 
         findViewById<Button>(R.id.set_default_screener).setOnClickListener {
@@ -117,8 +117,8 @@ class MainActivity : AppCompatActivity() {
 
     companion object {
         private const val SELECT_SERVICE_REQUEST_CODE = 2
-        private const val NEW_AREA_CODE_REQUEST_KEY = "new_area_code"
-        private const val NEW_AREA_CODE_FRAGMENT_TAG = "new_area_code"
+        private const val NEW_PREFIX_REQUEST_KEY = "new_prefix"
+        private const val NEW_PREFIX_FRAGMENT_TAG = "new_prefix"
         private const val TAG = "MainActivity"
     }
 }

@@ -1,4 +1,4 @@
-package io.asnell.areacodeblocker.db
+package io.asnell.prefixscreener.db
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

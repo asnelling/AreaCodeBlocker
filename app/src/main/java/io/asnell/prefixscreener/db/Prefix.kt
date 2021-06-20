@@ -1,11 +1,11 @@
-package io.asnell.areacodeblocker.db
+package io.asnell.prefixscreener.db
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity(tableName = "area_code")
-data class AreaCode(
-    val code: String,
+@Entity
+data class Prefix(
+    val number: String,
 
     @PrimaryKey(autoGenerate = true)
     val id: Int? = null,
