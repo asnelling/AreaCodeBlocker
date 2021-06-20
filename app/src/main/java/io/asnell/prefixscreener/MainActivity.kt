@@ -5,6 +5,7 @@ import android.app.role.RoleManager.ROLE_CALL_SCREENING
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
@@ -27,9 +28,9 @@ class MainActivity : AppCompatActivity() {
         registerForActivityResult(BecomeCallScreener()) { result ->
             if (result) {
                 findViewById<View>(R.id.permission_notice).visibility = GONE
-                debug(TAG, "call screening active")
+                Log.i(TAG, "set as default call screening app")
             } else {
-                debug(TAG, "call screening NOT active")
+                Log.w(TAG, "call screening NOT active")
             }
         }
 
@@ -56,7 +57,7 @@ class MainActivity : AppCompatActivity() {
         val adapter = PrefixListAdapter()
         adapter.removeListener =
             PrefixListAdapter.RemovePrefixListener { prefix ->
-                debug(TAG, "removing prefix ${prefix.id}: ${prefix.number}")
+                Log.i(TAG, "removing prefix ${prefix.id}: ${prefix.number}")
                 prefixViewModel.delete(prefix)
             }
 

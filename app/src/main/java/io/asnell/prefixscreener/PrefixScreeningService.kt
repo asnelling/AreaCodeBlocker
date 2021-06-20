@@ -3,6 +3,7 @@ package io.asnell.prefixscreener
 import android.telecom.Call
 import android.telecom.Call.Details.DIRECTION_INCOMING
 import android.telecom.CallScreeningService
+import android.util.Log
 import io.asnell.prefixscreener.db.Action
 import io.asnell.prefixscreener.db.History
 import kotlinx.coroutines.flow.first
@@ -21,13 +22,11 @@ class PrefixScreeningService : CallScreeningService() {
         // The handle (e.g., phone number) to which the Call is currently
         // connected.
         val callerNumber = callDetails.handle.schemeSpecificPart
-        debug(TAG, "call from: $callerNumber")
 
         app.applicationScope.launch {
             var result = "allow"
             val response = CallResponse.Builder()
             val prefixes = app.repository.allPrefixes.first()
-            debug(TAG, "prefixes: ${prefixes.size}")
 
             for ((number, _, action) in prefixes) {
                 if (callerNumber.startsWith(number)) {
@@ -52,7 +51,7 @@ class PrefixScreeningService : CallScreeningService() {
 
             respondToCall(callDetails, response.build())
 
-            debug(TAG, "screening result: $result")
+            Log.i(TAG, "call from: $callerNumber - screening result: $result")
             app.repository.insert(
                 History(
                     callDetails.creationTimeMillis,

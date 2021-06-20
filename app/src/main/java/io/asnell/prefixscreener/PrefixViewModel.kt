@@ -13,12 +13,7 @@ class PrefixViewModel(private val repository: Repository) : ViewModel() {
     }
 
     fun delete(prefix: Prefix) = viewModelScope.launch {
-        debug(TAG, "deleting prefix: $prefix")
         repository.delete(prefix)
-    }
-
-    companion object {
-        private const val TAG = "PrefixViewModel"
     }
 }
 

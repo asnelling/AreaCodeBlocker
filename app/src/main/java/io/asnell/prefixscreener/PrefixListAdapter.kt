@@ -1,5 +1,6 @@
 package io.asnell.prefixscreener
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -28,7 +29,7 @@ class PrefixListAdapter :
 
         viewHolder.removePrefixButton.setOnClickListener { v ->
             val prefix = v.tag as Prefix
-            debug(TAG, "remove button clicked: ${prefix.id} ${prefix.number}")
+            Log.i(TAG, "remove button clicked: ${prefix.id} ${prefix.number}")
             removeListener.remove(prefix)
         }
 
