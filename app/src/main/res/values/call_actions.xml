@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string-array name="call_actions">
-        <item>Disallow</item>
-        <item>Reject</item>
-        <item>Silence</item>
-    </string-array>
-</resources>

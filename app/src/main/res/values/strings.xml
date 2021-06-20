@@ -2,20 +2,16 @@
     <string name="app_name">Prefix Screener</string>
     <string name="add_prefix">Add prefix</string>
     <string name="hint_prefix">Prefix (with country code)…</string>
-    <string name="button_save">Save</string>
-    <string name="empty_not_saved">Prefix not saved because it is empty.</string>
     <string name="remove">Remove</string>
     <string name="call_disallow">Disallow call</string>
     <string name="call_reject">Reject call</string>
     <string name="call_silence">Silence call</string>
-    <string name="action">Action</string>
     <string name="action_select_service">Select screening service</string>
     <string name="blocklist_empty">Blocklist is empty</string>
     <string name="block">Block</string>
     <string name="reject">Reject</string>
     <string name="silence">Silence</string>
     <string name="message_set_screener">Set Prefix Screener as your default call screener to activate.</string>
-    <string name="dismiss">Dismiss</string>
     <string name="set_as_default">Set as default</string>
     <string name="prefix_plus">+</string>
 

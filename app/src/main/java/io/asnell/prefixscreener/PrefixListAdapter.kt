@@ -10,6 +10,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import io.asnell.prefixscreener.PrefixListAdapter.RemovePrefixListener
 import io.asnell.prefixscreener.db.Action
 import io.asnell.prefixscreener.db.Prefix
 
