@@ -1,7 +1,6 @@
 package io.asnell.prefixscreener
 
 import android.app.role.RoleManager
-import android.app.role.RoleManager.ROLE_CALL_SCREENING
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -10,8 +9,6 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
-import android.view.View.GONE
-import android.view.View.VISIBLE
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
@@ -24,16 +21,6 @@ import io.asnell.prefixscreener.db.Action
 import io.asnell.prefixscreener.db.Prefix
 
 class MainActivity : AppCompatActivity() {
-    private val becomeCallScreener =
-        registerForActivityResult(BecomeCallScreener()) { result ->
-            if (result) {
-                findViewById<View>(R.id.permission_notice).visibility = GONE
-                Log.i(TAG, "set as default call screening app")
-            } else {
-                Log.w(TAG, "call screening NOT active")
-            }
-        }
-
     private val prefixViewModel: PrefixViewModel by viewModels {
         PrefixViewModelFactory(
             (application as PrefixScreenerApplication).repository
@@ -43,8 +30,8 @@ class MainActivity : AppCompatActivity() {
     override fun onStart() {
         super.onStart()
         val roleManager = getSystemService(RoleManager::class.java)
-        if (!roleManager.isRoleHeld(ROLE_CALL_SCREENING)) {
-            findViewById<View>(R.id.permission_notice).visibility = VISIBLE
+        if (!roleManager.isRoleHeld(RoleManager.ROLE_CALL_SCREENING)) {
+            findViewById<View>(R.id.permission_notice).visibility = View.VISIBLE
         }
     }
 
@@ -54,33 +41,28 @@ class MainActivity : AppCompatActivity() {
 
         val emptyView = findViewById<TextView>(R.id.empty_view)
         val recyclerView = findViewById<RecyclerView>(R.id.recyclerview)
+
         val adapter = PrefixListAdapter()
-        adapter.removeListener =
-            PrefixListAdapter.RemovePrefixListener { prefix ->
-                Log.i(TAG, "removing prefix ${prefix.id}: ${prefix.number}")
-                prefixViewModel.delete(prefix)
-            }
+        adapter.removeListener = PrefixListAdapter
+            .RemovePrefixListener { prefix -> prefixViewModel.delete(prefix) }
 
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(this)
 
         prefixViewModel.allPrefixes.observe(this, { prefixes ->
-            prefixes?.let { adapter.submitList(it) }
-            if (prefixes.isEmpty()) {
-                emptyView.visibility = VISIBLE
-            } else {
-                emptyView.visibility = GONE
-            }
+            adapter.submitList(prefixes)
+            emptyView.visibility =
+                if (prefixes.isEmpty()) View.VISIBLE else View.GONE
         })
 
         val fab = findViewById<FloatingActionButton>(R.id.fab)
         fab.setOnClickListener {
             val fragment = NewPrefixDialogFragment()
-            fragment.show(supportFragmentManager, NEW_PREFIX_FRAGMENT_TAG)
+            fragment.show(supportFragmentManager, NewPrefixDialogFragment.TAG)
         }
 
         supportFragmentManager.setFragmentResultListener(
-            NEW_PREFIX_REQUEST_KEY, this
+            NewPrefixDialogFragment.TAG, this
         ) { _, bundle ->
             val prefixNums = bundle
                 .getString("prefix") ?: return@setFragmentResultListener
@@ -91,6 +73,18 @@ class MainActivity : AppCompatActivity() {
                 action = Action.valueOf(action)
             )
             prefixViewModel.insert(prefix)
+        }
+
+        val becomeCallScreener = registerForActivityResult(
+            BecomeCallScreener()
+        ) { result ->
+            if (result) {
+                findViewById<View>(R.id.permission_notice).visibility =
+                    View.GONE
+                Log.i(TAG, "set as default call screening app")
+            } else {
+                Log.w(TAG, "call screening NOT active")
+            }
         }
 
         findViewById<Button>(R.id.set_default_screener).setOnClickListener {
@@ -112,9 +106,7 @@ class MainActivity : AppCompatActivity() {
             }
             true
         }
-        else -> {
-            super.onOptionsItemSelected(item)
-        }
+        else -> super.onOptionsItemSelected(item)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -124,8 +116,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     companion object {
-        private const val NEW_PREFIX_REQUEST_KEY = "new_prefix"
-        private const val NEW_PREFIX_FRAGMENT_TAG = "new_prefix"
         private const val TAG = "MainActivity"
     }
 }

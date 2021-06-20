@@ -1,7 +1,6 @@
 package io.asnell.prefixscreener
 
 import android.os.Bundle
-import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -26,61 +25,36 @@ class NewPrefixDialogFragment : BottomSheetDialogFragment() {
         val editPrefixView: EditText = view.findViewById(R.id.edit_prefix)
         view.findViewById<Button>(R.id.button_block)
             .setOnClickListener {
-                if (TextUtils.isEmpty(editPrefixView.text)) {
-                    // handle validation error
-                } else {
-                    val prefix = editPrefixView.text.toString()
-                    val action = Action.DISALLOW.name
-                    val result = bundleOf(
-                        "prefix" to "+$prefix",
-                        "action" to action,
-                    )
-                    parentFragmentManager.setFragmentResult(
-                        "new_prefix",
-                        result
-                    )
-                    dismiss()
-                }
+                dismiss(editPrefixView.text, Action.SILENCE)
             }
 
         view.findViewById<Button>(R.id.button_reject)
             .setOnClickListener {
-                if (TextUtils.isEmpty(editPrefixView.text)) {
-                    // handle validation error
-                } else {
-                    val prefix = editPrefixView.text.toString()
-                    val action = Action.REJECT.name
-                    val result = bundleOf(
-                        "prefix" to "+$prefix",
-                        "action" to action,
-                    )
-                    parentFragmentManager.setFragmentResult(
-                        "new_prefix",
-                        result
-                    )
-                    dismiss()
-                }
+                dismiss(editPrefixView.text, Action.SILENCE)
             }
 
         view.findViewById<Button>(R.id.button_silence)
             .setOnClickListener {
-                if (TextUtils.isEmpty(editPrefixView.text)) {
-                    // handle validation error
-                } else {
-                    val prefix = editPrefixView.text.toString()
-                    val action = Action.SILENCE.name
-                    val result = bundleOf(
-                        "prefix" to "+$prefix",
-                        "action" to action,
-                    )
-                    parentFragmentManager.setFragmentResult(
-                        "new_prefix",
-                        result
-                    )
-                    dismiss()
-                }
+                dismiss(editPrefixView.text, Action.SILENCE)
             }
 
         return view
+    }
+
+    fun dismiss(prefix: CharSequence, action: Action) {
+        if (prefix.isBlank()) {
+            return
+        }
+
+        val result = bundleOf(
+            "prefix" to "+$prefix",
+            "action" to action.name,
+        )
+        parentFragmentManager.setFragmentResult(TAG, result)
+        dismiss()
+    }
+
+    companion object {
+        const val TAG = "NewPrefixDialogFragment"
     }
 }

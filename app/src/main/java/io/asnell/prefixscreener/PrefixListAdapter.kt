@@ -24,16 +24,12 @@ class PrefixListAdapter :
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): PrefixViewHolder {
-        val viewHolder = PrefixViewHolder.create(parent)
-
-        viewHolder.removePrefixButton.setOnClickListener { v ->
+    ): PrefixViewHolder = PrefixViewHolder.create(parent).apply {
+        removePrefixButton.setOnClickListener { v ->
             val prefix = v.tag as Prefix
             Log.i(TAG, "remove button clicked: ${prefix.id} ${prefix.number}")
             removeListener.remove(prefix)
         }
-
-        return viewHolder
     }
 
     override fun onBindViewHolder(holder: PrefixViewHolder, position: Int) {
@@ -96,19 +92,11 @@ class PrefixListAdapter :
     }
 
     class PrefixComparator : DiffUtil.ItemCallback<Prefix>() {
-        override fun areItemsTheSame(
-            oldItem: Prefix,
-            newItem: Prefix
-        ): Boolean {
-            return oldItem == newItem
-        }
+        override fun areItemsTheSame(a: Prefix, b: Prefix): Boolean =
+            a.id == b.id
 
-        override fun areContentsTheSame(
-            oldItem: Prefix,
-            newItem: Prefix
-        ): Boolean {
-            return oldItem.number == newItem.number
-        }
+        override fun areContentsTheSame(a: Prefix, b: Prefix): Boolean =
+            a == b
     }
 
     companion object {

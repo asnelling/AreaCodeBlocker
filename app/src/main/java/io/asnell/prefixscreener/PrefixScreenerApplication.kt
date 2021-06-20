@@ -7,8 +7,9 @@ import kotlinx.coroutines.SupervisorJob
 
 class PrefixScreenerApplication : Application() {
     val applicationScope = CoroutineScope(SupervisorJob())
-    private val database by lazy {
-        AppDatabase.getDatabase(this)
+    val repository by lazy {
+        Repository(
+            AppDatabase.getDatabase(this)
+        )
     }
-    val repository by lazy { Repository(database) }
 }

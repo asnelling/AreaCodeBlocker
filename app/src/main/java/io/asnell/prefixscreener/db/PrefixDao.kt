@@ -14,9 +14,6 @@ interface PrefixDao {
     @Insert
     suspend fun insert(prefix: Prefix)
 
-    @Query("DELETE FROM Prefix")
-    suspend fun deleteAll()
-
     @Delete
     suspend fun delete(prefix: Prefix)
 }
