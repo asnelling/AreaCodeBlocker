@@ -6,6 +6,43 @@
     android:layout_height="match_parent"
     tools:context="io.asnell.prefixscreener.MainActivity">
 
+    <LinearLayout
+        android:id="@+id/permission_notice"
+        android:layout_width="0dp"
+        android:layout_height="120dp"
+        android:orientation="vertical"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="visible">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="24dp"
+            android:layout_weight="1"
+            android:drawablePadding="16dp"
+            android:gravity="center_vertical"
+            android:text="@string/message_set_screener"
+            app:drawableStartCompat="@drawable/ic_baseline_error_40" />
+
+        <Button
+            android:id="@+id/set_default_screener"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:text="@string/set_as_default" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="?attr/colorOnSurface" />
+    </LinearLayout>
 
     <TextView
         android:id="@+id/empty_view"
@@ -20,42 +57,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/permission_notice"
         tools:visibility="visible" />
-
-    <LinearLayout
-        android:id="@+id/permission_notice"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:orientation="vertical"
-        android:visibility="gone"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:visibility="visible">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginHorizontal="16dp"
-            android:layout_weight="1"
-            android:drawablePadding="16dp"
-            android:text="@string/message_set_screener"
-            app:drawableStartCompat="@drawable/ic_baseline_error_40" />
-
-        <Button
-            android:id="@+id/set_default_screener"
-            style="@style/Widget.MaterialComponents.Button.TextButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end"
-            android:layout_margin="16dp"
-            android:text="@string/set_as_default" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="?attr/colorOnSurface" />
-    </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerview"
