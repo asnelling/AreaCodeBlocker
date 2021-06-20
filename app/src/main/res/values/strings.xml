@@ -11,7 +11,7 @@
     <string name="block">Block</string>
     <string name="reject">Reject</string>
     <string name="silence">Silence</string>
-    <string name="message_set_screener">Set Prefix Screener as your default call screener to activate.</string>
+    <string name="message_set_screener">Set Prefix Screener as your default caller ID &amp; spam app to activate call screening.</string>
     <string name="set_as_default">Set as default</string>
     <string name="prefix_plus">+</string>
 
