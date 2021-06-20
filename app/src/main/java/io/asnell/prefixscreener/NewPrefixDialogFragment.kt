@@ -35,8 +35,10 @@ class NewPrefixDialogFragment : BottomSheetDialogFragment() {
                         "prefix" to "+$prefix",
                         "action" to action,
                     )
-                    parentFragmentManager.setFragmentResult("new_prefix",
-                        result)
+                    parentFragmentManager.setFragmentResult(
+                        "new_prefix",
+                        result
+                    )
                     dismiss()
                 }
             }
@@ -52,8 +54,10 @@ class NewPrefixDialogFragment : BottomSheetDialogFragment() {
                         "prefix" to "+$prefix",
                         "action" to action,
                     )
-                    parentFragmentManager.setFragmentResult("new_prefix",
-                        result)
+                    parentFragmentManager.setFragmentResult(
+                        "new_prefix",
+                        result
+                    )
                     dismiss()
                 }
             }
@@ -69,8 +73,10 @@ class NewPrefixDialogFragment : BottomSheetDialogFragment() {
                         "prefix" to "+$prefix",
                         "action" to action,
                     )
-                    parentFragmentManager.setFragmentResult("new_prefix",
-                        result)
+                    parentFragmentManager.setFragmentResult(
+                        "new_prefix",
+                        result
+                    )
                     dismiss()
                 }
             }

@@ -13,12 +13,17 @@ import io.asnell.prefixscreener.PrefixListAdapter.RemovePrefixListener
 import io.asnell.prefixscreener.db.Action
 import io.asnell.prefixscreener.db.Prefix
 
-class PrefixListAdapter : ListAdapter<Prefix, PrefixListAdapter.PrefixViewHolder>(
-    PrefixComparator()
-) {
-    var removeListener = RemovePrefixListener {  }
+class PrefixListAdapter :
+    ListAdapter<Prefix, PrefixListAdapter.PrefixViewHolder>(
+        PrefixComparator()
+    ) {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PrefixViewHolder {
+    var removeListener = RemovePrefixListener { }
+
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int
+    ): PrefixViewHolder {
         val viewHolder = PrefixViewHolder.create(parent)
 
         viewHolder.removePrefixButton.setOnClickListener { v ->
@@ -40,32 +45,42 @@ class PrefixListAdapter : ListAdapter<Prefix, PrefixListAdapter.PrefixViewHolder
     }
 
     class PrefixViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val actionImage: ImageView = itemView.findViewById(R.id.action_image)
-        private val prefixItemView: TextView = itemView.findViewById(R.id.prefix)
+        private val actionImage: ImageView =
+            itemView.findViewById(R.id.action_image)
+        private val prefixItemView: TextView =
+            itemView.findViewById(R.id.prefix)
         val removePrefixButton: ImageButton = itemView.findViewById(R.id.remove)
 
         fun bind(prefix: Prefix) {
             prefixItemView.text = prefix.number
             removePrefixButton.tag = prefix
 
-            when(prefix.action) {
+            when (prefix.action) {
                 Action.DISALLOW -> {
-                    actionImage.setImageResource(R.drawable.ic_baseline_block_24)
-                    actionImage.contentDescription = itemView.resources.getString(
-                        R.string.call_disallow
-                    )
+                    actionImage.apply {
+                        setImageResource(R.drawable.ic_baseline_block_24)
+                        contentDescription = itemView
+                            .resources
+                            .getString(R.string.call_disallow)
+                    }
                 }
                 Action.REJECT -> {
-                    actionImage.setImageResource(R.drawable.ic_baseline_phone_missed_24)
-                    actionImage.contentDescription = itemView.resources.getString(
-                        R.string.call_reject
-                    )
+                    actionImage.apply {
+                        setImageResource(R.drawable.ic_baseline_phone_missed_24)
+                        contentDescription = itemView
+                            .resources
+                            .getString(R.string.call_reject)
+                    }
                 }
                 Action.SILENCE -> {
-                    actionImage.setImageResource(R.drawable.ic_baseline_notifications_off_24)
-                    actionImage.contentDescription = itemView.resources.getString(
-                        R.string.call_silence
-                    )
+                    actionImage.apply {
+                        setImageResource(
+                            R.drawable.ic_baseline_notifications_off_24
+                        )
+                        contentDescription = itemView
+                            .resources
+                            .getString(R.string.call_silence)
+                    }
                 }
             }
         }
@@ -80,11 +95,17 @@ class PrefixListAdapter : ListAdapter<Prefix, PrefixListAdapter.PrefixViewHolder
     }
 
     class PrefixComparator : DiffUtil.ItemCallback<Prefix>() {
-        override fun areItemsTheSame(oldItem: Prefix, newItem: Prefix): Boolean {
+        override fun areItemsTheSame(
+            oldItem: Prefix,
+            newItem: Prefix
+        ): Boolean {
             return oldItem == newItem
         }
 
-        override fun areContentsTheSame(oldItem: Prefix, newItem: Prefix): Boolean {
+        override fun areContentsTheSame(
+            oldItem: Prefix,
+            newItem: Prefix
+        ): Boolean {
             return oldItem.number == newItem.number
         }
     }

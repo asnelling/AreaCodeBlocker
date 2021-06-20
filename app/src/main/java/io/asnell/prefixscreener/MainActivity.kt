@@ -22,7 +22,9 @@ import io.asnell.prefixscreener.db.Prefix
 
 class MainActivity : AppCompatActivity() {
     private val prefixViewModel: PrefixViewModel by viewModels {
-        PrefixViewModelFactory((application as PrefixScreenerApplication).repository)
+        PrefixViewModelFactory(
+            (application as PrefixScreenerApplication).repository
+        )
     }
 
     override fun onStart() {
@@ -40,10 +42,11 @@ class MainActivity : AppCompatActivity() {
         val emptyView = findViewById<TextView>(R.id.empty_view)
         val recyclerView = findViewById<RecyclerView>(R.id.recyclerview)
         val adapter = PrefixListAdapter()
-        adapter.removeListener = PrefixListAdapter.RemovePrefixListener { prefix ->
-            debug(TAG, "removing prefix ${prefix.id}: ${prefix.number}")
-            prefixViewModel.delete(prefix)
-        }
+        adapter.removeListener =
+            PrefixListAdapter.RemovePrefixListener { prefix ->
+                debug(TAG, "removing prefix ${prefix.id}: ${prefix.number}")
+                prefixViewModel.delete(prefix)
+            }
 
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(this)
@@ -64,12 +67,16 @@ class MainActivity : AppCompatActivity() {
         }
 
         supportFragmentManager.setFragmentResultListener(
-            NEW_PREFIX_REQUEST_KEY, this) { requestKey, bundle ->
-            val prefixNums = bundle.getString("prefix")!!
-            val action = bundle.getString("action")!!
+            NEW_PREFIX_REQUEST_KEY, this
+        ) { _, bundle ->
+            val prefixNums = bundle
+                .getString("prefix") ?: return@setFragmentResultListener
+            val action = bundle
+                .getString("action") ?: return@setFragmentResultListener
             val prefix = Prefix(
                 prefixNums,
-                action = Action.valueOf(action))
+                action = Action.valueOf(action)
+            )
             prefixViewModel.insert(prefix)
         }
 
@@ -81,7 +88,11 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+    override fun onActivityResult(
+        requestCode: Int,
+        resultCode: Int,
+        data: Intent?
+    ) {
         super.onActivityResult(requestCode, resultCode, data)
 
         when (requestCode) {
@@ -96,7 +107,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    override fun onOptionsItemSelected(item: MenuItem) = when(item.itemId) {
+    override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
         R.id.action_select_service -> {
             val roleManager = getSystemService(RoleManager::class.java)
             val intent = roleManager

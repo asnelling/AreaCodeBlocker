@@ -6,13 +6,14 @@ import android.telecom.CallScreeningService
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.asLiveData
-import io.asnell.prefixscreener.db.Action
-import io.asnell.prefixscreener.db.Prefix
 import io.asnell.prefixscreener.PrefixScreenerApplication
 import io.asnell.prefixscreener.Repository
+import io.asnell.prefixscreener.db.Action
 import io.asnell.prefixscreener.db.History
+import io.asnell.prefixscreener.db.Prefix
 import io.asnell.prefixscreener.debug
-import kotlinx.coroutines.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.launch
 
 class PrefixScreeningService : CallScreeningService() {
     private val applicationScope: CoroutineScope by lazy {
@@ -47,9 +48,9 @@ class PrefixScreeningService : CallScreeningService() {
         val response = CallResponse.Builder()
         var result = "allow"
 
-        for (prefix in blocklistCache) {
-            if (callerNumber.startsWith(prefix.number)) {
-                when (prefix.action) {
+        for ((number, _, action) in blocklistCache) {
+            if (callerNumber.startsWith(number)) {
+                when (action) {
                     Action.DISALLOW -> {
                         debug(TAG, "disallowing call")
                         response.setDisallowCall(true)
@@ -76,10 +77,10 @@ class PrefixScreeningService : CallScreeningService() {
         applicationScope.launch {
             repository.insert(
                 History(
-                callDetails.creationTimeMillis,
-                callerNumber,
-                result,
-            )
+                    callDetails.creationTimeMillis,
+                    callerNumber,
+                    result,
+                )
             )
         }
     }

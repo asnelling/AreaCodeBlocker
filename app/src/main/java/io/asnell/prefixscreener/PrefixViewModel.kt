@@ -5,7 +5,8 @@ import io.asnell.prefixscreener.db.Prefix
 import kotlinx.coroutines.launch
 
 class PrefixViewModel(private val repository: Repository) : ViewModel() {
-    val allPrefixes: LiveData<List<Prefix>> = repository.allPrefixes.asLiveData()
+    val allPrefixes: LiveData<List<Prefix>> =
+        repository.allPrefixes.asLiveData()
 
     fun insert(prefix: Prefix) = viewModelScope.launch {
         repository.insert(prefix)
@@ -21,7 +22,8 @@ class PrefixViewModel(private val repository: Repository) : ViewModel() {
     }
 }
 
-class PrefixViewModelFactory(private val repository: Repository) : ViewModelProvider.Factory {
+class PrefixViewModelFactory(private val repository: Repository) :
+    ViewModelProvider.Factory {
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(PrefixViewModel::class.java)) {
             @Suppress("UNCHECKED_CAST")
