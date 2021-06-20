@@ -19,3 +19,17 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
+
+# output a full report of all the rules that R8 applies
+#-printconfiguration /tmp/full-r8-config.txt
+
+# Remove logging calls
+# https://www.guardsquare.com/manual/configuration/examples#logging
+-assumenosideeffects class android.util.Log {
+    public static boolean isLoggable(java.lang.String, int);
+    public static int v(...);
+    public static int d(...);
+    public static int i(...);
+    public static int w(...);
+    public static int e(...);
+}
