@@ -39,7 +39,7 @@ class NewAreaCodeDialogFragment : BottomSheetDialogFragment() {
                     val areaCode = editAreaCodeView.text.toString()
                     val action = Action.DISALLOW.name
                     val result = bundleOf(
-                        "areaCode" to areaCode,
+                        "areaCode" to "+$areaCode",
                         "action" to action,
                     )
                     parentFragmentManager.setFragmentResult("new_area_code",
@@ -56,7 +56,7 @@ class NewAreaCodeDialogFragment : BottomSheetDialogFragment() {
                     val areaCode = editAreaCodeView.text.toString()
                     val action = Action.REJECT.name
                     val result = bundleOf(
-                        "areaCode" to areaCode,
+                        "areaCode" to "+$areaCode",
                         "action" to action,
                     )
                     parentFragmentManager.setFragmentResult("new_area_code",
@@ -73,7 +73,7 @@ class NewAreaCodeDialogFragment : BottomSheetDialogFragment() {
                     val areaCode = editAreaCodeView.text.toString()
                     val action = Action.SILENCE.name
                     val result = bundleOf(
-                        "areaCode" to areaCode,
+                        "areaCode" to "+$areaCode",
                         "action" to action,
                     )
                     parentFragmentManager.setFragmentResult("new_area_code",
