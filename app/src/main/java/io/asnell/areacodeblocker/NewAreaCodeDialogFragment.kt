@@ -23,13 +23,6 @@ class NewAreaCodeDialogFragment : BottomSheetDialogFragment() {
             false
         )
 
-//        val actionsDropdownView: MaterialAutoCompleteTextView = view
-//            .findViewById(R.id.actions_dropdown)
-//        actionsDropdownView.setAdapter(ArrayAdapter.createFromResource(
-//            view.context,
-//            R.array.call_actions,
-//            android.R.layout.simple_dropdown_item_1line))
-
         val editAreaCodeView: EditText = view.findViewById(R.id.edit_area_code)
         view.findViewById<Button>(R.id.button_block)
             .setOnClickListener {
@@ -83,10 +76,5 @@ class NewAreaCodeDialogFragment : BottomSheetDialogFragment() {
             }
 
         return view
-    }
-
-    companion object {
-        const val EXTRA_REPLY = "io.asnell.areacodeblocker.REPLY"
-        const val EXTRA_ACTION = "io.asnell.areacodeblocker.ACTION"
     }
 }
