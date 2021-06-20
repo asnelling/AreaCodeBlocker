@@ -14,5 +14,8 @@
     <string name="block">Block</string>
     <string name="reject">Reject</string>
     <string name="silence">Silence</string>
+    <string name="message_set_screener">Set Area Code Blocker as your default call screener to activate screening.</string>
+    <string name="dismiss">Dismiss</string>
+    <string name="set_as_default">Set as default</string>
 
 </resources>

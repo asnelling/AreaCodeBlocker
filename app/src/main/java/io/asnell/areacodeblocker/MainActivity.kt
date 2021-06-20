@@ -8,8 +8,9 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
-import android.view.View.INVISIBLE
-import android.view.View.VISIBLE
+import android.view.View
+import android.view.View.*
+import android.widget.Button
 import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -22,6 +23,14 @@ import io.asnell.areacodeblocker.db.AreaCode
 class MainActivity : AppCompatActivity() {
     private val areaCodeViewModel: AreaCodeViewModel by viewModels {
         AreaCodeViewModelFactory((application as AreaCodesApplication).repository)
+    }
+
+    override fun onStart() {
+        super.onStart()
+        val roleManager = getSystemService(RoleManager::class.java)
+        if (!roleManager.isRoleHeld(ROLE_CALL_SCREENING)) {
+            findViewById<View>(R.id.permission_notice).visibility = VISIBLE
+        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,7 +53,7 @@ class MainActivity : AppCompatActivity() {
             if (areaCodes.isEmpty()) {
                 emptyView.visibility = VISIBLE
             } else {
-                emptyView.visibility = INVISIBLE
+                emptyView.visibility = GONE
             }
         })
 
@@ -63,6 +72,13 @@ class MainActivity : AppCompatActivity() {
                 action = Action.valueOf(action))
             areaCodeViewModel.insert(areaCode)
         }
+
+        findViewById<Button>(R.id.set_default_screener).setOnClickListener {
+            val roleManager = getSystemService(RoleManager::class.java)
+            val intent = roleManager
+                .createRequestRoleIntent(ROLE_CALL_SCREENING)
+            startActivityForResult(intent, SELECT_SERVICE_REQUEST_CODE)
+        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -71,6 +87,7 @@ class MainActivity : AppCompatActivity() {
         when (requestCode) {
             SELECT_SERVICE_REQUEST_CODE -> {
                 if (resultCode == RESULT_OK) {
+                    findViewById<View>(R.id.permission_notice).visibility = GONE
                     Log.d(TAG, "call screening active")
                 } else {
                     Log.d(TAG, "call screening NOT active")
@@ -99,7 +116,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     companion object {
-        private const val NEW_AREA_CODE_REQUEST_CODE = 1
         private const val SELECT_SERVICE_REQUEST_CODE = 2
         private const val NEW_AREA_CODE_REQUEST_KEY = "new_area_code"
         private const val NEW_AREA_CODE_FRAGMENT_TAG = "new_area_code"
