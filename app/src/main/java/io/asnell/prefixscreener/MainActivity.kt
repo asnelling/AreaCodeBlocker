@@ -3,6 +3,7 @@ package io.asnell.prefixscreener
 import android.app.role.RoleManager
 import android.app.role.RoleManager.ROLE_CALL_SCREENING
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
@@ -12,6 +13,7 @@ import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -113,6 +115,19 @@ class MainActivity : AppCompatActivity() {
             val intent = roleManager
                 .createRequestRoleIntent(ROLE_CALL_SCREENING)
             startActivityForResult(intent, SELECT_SERVICE_REQUEST_CODE)
+            true
+        }
+        R.id.action_help -> {
+            val url = getString(R.string.help_url)
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+            if (intent.resolveActivity(packageManager) != null) {
+                startActivity(intent)
+            } else {
+                Toast.makeText(
+                    this, R.string.no_browser_installed,
+                    Toast.LENGTH_LONG
+                ).show()
+            }
             true
         }
         else -> {
