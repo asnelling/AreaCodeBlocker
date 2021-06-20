@@ -1,6 +1,5 @@
 package io.asnell.prefixscreener
 
-import android.util.Log
 import androidx.lifecycle.*
 import io.asnell.prefixscreener.db.Prefix
 import kotlinx.coroutines.launch
@@ -13,7 +12,7 @@ class PrefixViewModel(private val repository: Repository) : ViewModel() {
     }
 
     fun delete(prefix: Prefix) = viewModelScope.launch {
-        Log.d(TAG, "deleting prefix: $prefix")
+        debug(TAG, "deleting prefix: $prefix")
         repository.delete(prefix)
     }
 

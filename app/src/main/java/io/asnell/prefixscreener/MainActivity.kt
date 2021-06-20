@@ -4,7 +4,6 @@ import android.app.role.RoleManager
 import android.app.role.RoleManager.ROLE_CALL_SCREENING
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
@@ -42,7 +41,7 @@ class MainActivity : AppCompatActivity() {
         val recyclerView = findViewById<RecyclerView>(R.id.recyclerview)
         val adapter = PrefixListAdapter()
         adapter.removeListener = PrefixListAdapter.RemovePrefixListener { prefix ->
-            Log.d(TAG, "removing prefix ${prefix.id}: ${prefix.number}")
+            debug(TAG, "removing prefix ${prefix.id}: ${prefix.number}")
             prefixViewModel.delete(prefix)
         }
 
@@ -89,9 +88,9 @@ class MainActivity : AppCompatActivity() {
             SELECT_SERVICE_REQUEST_CODE -> {
                 if (resultCode == RESULT_OK) {
                     findViewById<View>(R.id.permission_notice).visibility = GONE
-                    Log.d(TAG, "call screening active")
+                    debug(TAG, "call screening active")
                 } else {
-                    Log.d(TAG, "call screening NOT active")
+                    debug(TAG, "call screening NOT active")
                 }
             }
         }

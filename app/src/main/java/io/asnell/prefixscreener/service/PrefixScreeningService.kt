@@ -3,7 +3,6 @@ package io.asnell.prefixscreener.service
 import android.telecom.Call
 import android.telecom.Call.Details.DIRECTION_INCOMING
 import android.telecom.CallScreeningService
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.asLiveData
@@ -12,6 +11,7 @@ import io.asnell.prefixscreener.db.Prefix
 import io.asnell.prefixscreener.PrefixScreenerApplication
 import io.asnell.prefixscreener.Repository
 import io.asnell.prefixscreener.db.History
+import io.asnell.prefixscreener.debug
 import kotlinx.coroutines.*
 
 class PrefixScreeningService : CallScreeningService() {
@@ -42,7 +42,7 @@ class PrefixScreeningService : CallScreeningService() {
         // connected.
         val handle = callDetails.handle
         val callerNumber = handle.schemeSpecificPart
-        Log.d(TAG, "call from: $handle [$callerNumber]")
+        debug(TAG, "call from: $handle [$callerNumber]")
 
         val response = CallResponse.Builder()
         var result = "allow"
@@ -51,18 +51,18 @@ class PrefixScreeningService : CallScreeningService() {
             if (callerNumber.startsWith(prefix.number)) {
                 when (prefix.action) {
                     Action.DISALLOW -> {
-                        Log.d(TAG, "disallowing call")
+                        debug(TAG, "disallowing call")
                         response.setDisallowCall(true)
                         result = "disallow"
                     }
                     Action.REJECT -> {
-                        Log.d(TAG, "rejecting call")
+                        debug(TAG, "rejecting call")
                         response.setDisallowCall(true)
                         response.setRejectCall(true)
                         result = "reject"
                     }
                     Action.SILENCE -> {
-                        Log.d(TAG, "silencing call")
+                        debug(TAG, "silencing call")
                         response.setSilenceCall(true)
                         result = "silence"
                     }
@@ -86,13 +86,13 @@ class PrefixScreeningService : CallScreeningService() {
 
     override fun onCreate() {
         super.onCreate()
-        Log.d(TAG, "service created")
+        debug(TAG, "service created")
         blocklist.observeForever(repoObserver)
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        Log.d(TAG, "service destroyed")
+        debug(TAG, "service destroyed")
         blocklist.removeObserver(repoObserver)
     }
 
