@@ -110,13 +110,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
-        R.id.action_select_service -> {
-            val roleManager = getSystemService(RoleManager::class.java)
-            val intent = roleManager
-                .createRequestRoleIntent(ROLE_CALL_SCREENING)
-            startActivityForResult(intent, SELECT_SERVICE_REQUEST_CODE)
-            true
-        }
         R.id.action_help -> {
             val url = getString(R.string.help_url)
             val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
