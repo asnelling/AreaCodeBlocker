@@ -1,6 +1,7 @@
 package io.asnell.prefixscreener
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -25,12 +26,13 @@ class NewPrefixDialogFragment : BottomSheetDialogFragment() {
         val editPrefixView: EditText = view.findViewById(R.id.edit_prefix)
         view.findViewById<Button>(R.id.button_block)
             .setOnClickListener {
-                dismiss(editPrefixView.text, Action.SILENCE)
+                Log.d(TAG, "block button pressed")
+                dismiss(editPrefixView.text, Action.DISALLOW)
             }
 
         view.findViewById<Button>(R.id.button_reject)
             .setOnClickListener {
-                dismiss(editPrefixView.text, Action.SILENCE)
+                dismiss(editPrefixView.text, Action.REJECT)
             }
 
         view.findViewById<Button>(R.id.button_silence)
