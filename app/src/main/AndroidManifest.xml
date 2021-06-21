@@ -35,6 +35,8 @@
                 <action android:name="android.telecom.CallScreeningService"/>
             </intent-filter>
         </service>
+        <uses-library android:name="android.test.base" />
+        <uses-library android:name="android.test.runner" />
     </application>
 
 </manifest>
