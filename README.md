@@ -2,7 +2,7 @@
 
 ## Usage
 
-To add a prefix to the blocklist, press "+" on the bottom right:
+To add a prefix to the blacklist, press "+" on the bottom right:
 
 ![Add a new prefix](screenshots/empty_blocklist.png)
 

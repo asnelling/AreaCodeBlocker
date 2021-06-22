@@ -6,7 +6,7 @@
     <string name="call_disallow">Disallow call</string>
     <string name="call_reject">Reject call</string>
     <string name="call_silence">Silence call</string>
-    <string name="blocklist_empty">Blocklist is empty</string>
+    <string name="blacklist_empty">Blacklist is empty</string>
     <string name="block">Block</string>
     <string name="reject">Reject</string>
     <string name="silence">Silence</string>
