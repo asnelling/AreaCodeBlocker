@@ -1,5 +1,6 @@
 package io.asnell.prefixscreener
 
+import android.os.Build
 import android.telecom.Call
 import android.telecom.Call.Details.DIRECTION_INCOMING
 import android.telecom.CallScreeningService
@@ -52,11 +53,19 @@ class PrefixScreeningService : CallScreeningService() {
             respondToCall(callDetails, response.build())
 
             Log.i(TAG, "call from: $callerNumber - screening result: $result")
+            val verificationStatus =
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                    callDetails.callerNumberVerificationStatus
+                } else {
+                    0
+                }
+
             app.repository.insert(
                 History(
                     callDetails.creationTimeMillis,
                     callerNumber,
                     result,
+                    verificationStatus,
                 )
             )
         }
