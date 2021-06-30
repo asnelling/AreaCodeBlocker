@@ -33,16 +33,16 @@ class PrefixScreeningService : CallScreeningService() {
                     when (action) {
                         Action.DISALLOW -> {
                             response.setDisallowCall(true)
-                            result = "disallow"
+                            result = Action.DISALLOW.name
                         }
                         Action.REJECT -> {
                             response.setDisallowCall(true)
                             response.setRejectCall(true)
-                            result = "reject"
+                            result = Action.REJECT.name
                         }
                         Action.SILENCE -> {
                             response.setSilenceCall(true)
-                            result = "silence"
+                            result = Action.SILENCE.name
                         }
                     }
                     break
