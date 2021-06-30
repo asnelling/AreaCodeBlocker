@@ -3,7 +3,6 @@ package io.asnell.prefixscreener
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
@@ -13,6 +12,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
+import com.google.android.material.tabs.TabLayout
+import com.google.android.material.tabs.TabLayoutMediator
 
 class MainActivity : AppCompatActivity() {
     private lateinit var viewPager: ViewPager2
@@ -23,6 +24,20 @@ class MainActivity : AppCompatActivity() {
 
         viewPager = findViewById(R.id.pager)
         viewPager.adapter = PagerAdapter(this)
+
+        val tabLayout = findViewById<TabLayout>(R.id.tab_layout)
+        TabLayoutMediator(tabLayout, viewPager) { tab, position ->
+            when (position) {
+                0 -> {
+                    tab.text = getString(R.string.tab_blacklist)
+                    tab.setIcon(R.drawable.ic_baseline_blacklist_24)
+                }
+                else -> {
+                    tab.text = getString(R.string.tab_history)
+                    tab.setIcon(R.drawable.ic_baseline_history_24)
+                }
+            }
+        }.attach()
     }
 
     override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {

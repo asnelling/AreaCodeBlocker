@@ -21,5 +21,7 @@
     <string name="history_silenced">Silenced</string>
     <string name="history_allowed">Allowed</string>
     <string name="history_empty">History is empty</string>
+    <string name="tab_blacklist">Blacklist</string>
+    <string name="tab_history">History</string>
 
 </resources>
