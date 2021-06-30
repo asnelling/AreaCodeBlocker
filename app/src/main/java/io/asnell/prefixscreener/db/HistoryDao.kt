@@ -10,6 +10,6 @@ interface HistoryDao {
     @Insert
     suspend fun insert(history: History)
 
-    @Query("SELECT * FROM History")
+    @Query("SELECT * FROM History ORDER BY receivedAt DESC")
     fun getHistory(): Flow<List<History>>
 }
