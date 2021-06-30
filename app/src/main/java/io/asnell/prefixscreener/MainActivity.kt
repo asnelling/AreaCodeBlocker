@@ -24,6 +24,7 @@ class MainActivity : AppCompatActivity() {
 
         viewPager = findViewById(R.id.pager)
         viewPager.adapter = PagerAdapter(this)
+        viewPager.offscreenPageLimit = 1
 
         val tabLayout = findViewById<TabLayout>(R.id.tab_layout)
         TabLayoutMediator(tabLayout, viewPager) { tab, position ->
