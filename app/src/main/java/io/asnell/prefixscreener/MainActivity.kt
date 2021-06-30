@@ -3,6 +3,7 @@ package io.asnell.prefixscreener
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
@@ -49,10 +50,12 @@ class MainActivity : AppCompatActivity() {
 
     private class PagerAdapter(fa: FragmentActivity) :
         FragmentStateAdapter(fa) {
-        override fun getItemCount(): Int = 1
+        override fun getItemCount(): Int = 2
 
-        override fun createFragment(position: Int): Fragment =
-            BlacklistFragment()
+        override fun createFragment(position: Int): Fragment = when (position) {
+            0 -> BlacklistFragment()
+            else -> HistoryFragment()
+        }
     }
 
     companion object {

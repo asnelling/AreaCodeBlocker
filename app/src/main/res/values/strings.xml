@@ -16,5 +16,10 @@
     <string name="help">Help</string>
     <string name="help_url">https://github.com/asnelling/PrefixScreener/blob/master/README.md</string>
     <string name="no_browser_installed">No browser installed to view help page.</string>
+    <string name="history_disallowed">Disallowed</string>
+    <string name="history_rejected">Rejected</string>
+    <string name="history_silenced">Silenced</string>
+    <string name="history_allowed">Allowed</string>
+    <string name="history_empty">History is empty</string>
 
 </resources>

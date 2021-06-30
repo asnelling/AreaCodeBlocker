@@ -9,6 +9,8 @@ import kotlinx.coroutines.flow.Flow
 class Repository(private val database: AppDatabase) {
     val allPrefixes: Flow<List<Prefix>> = database.prefixDao().getPrefixes()
 
+    val allHistory: Flow<List<History>> = database.historyDao().getHistory()
+
     @WorkerThread
     suspend fun insert(prefix: Prefix) {
         database.prefixDao().insert(prefix)
