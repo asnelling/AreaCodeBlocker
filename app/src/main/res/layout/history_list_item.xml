@@ -12,9 +12,11 @@
         android:layout_marginStart="16dp"
         android:firstBaselineToTopHeight="32dp"
         android:textAppearance="@android:style/TextAppearance.Large"
+        android:textIsSelectable="true"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="+12148881111" />
+        tools:text="+12148881111"
+        app:drawableEndCompat="@drawable/ic_baseline_verification_passed_24" />
 
     <TextView
         android:id="@+id/screened_at"
@@ -25,7 +27,8 @@
         android:textAppearance="?attr/textAppearanceListItemSecondary"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/caller_number"
-        tools:text="30 mins ago" />
+        tools:text="30 mins ago"
+        android:textIsSelectable="true" />
 
     <ImageView
         android:id="@+id/screened_action"
@@ -36,4 +39,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_baseline_block_24" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

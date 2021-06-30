@@ -1,11 +1,14 @@
 package io.asnell.prefixscreener
 
+import android.telecom.Connection.VERIFICATION_STATUS_FAILED
+import android.telecom.Connection.VERIFICATION_STATUS_PASSED
 import android.text.format.DateUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -40,6 +43,27 @@ class HistoryListAdapter :
 
         fun bind(history: History) {
             callerNumberView.text = history.callerNumber
+
+            val drawable = when (history.callerNumberVerificationStatus) {
+                VERIFICATION_STATUS_PASSED -> ResourcesCompat.getDrawable(
+                    itemView.resources,
+                    R.drawable.ic_baseline_verification_passed_24,
+                    null
+                )
+                VERIFICATION_STATUS_FAILED -> ResourcesCompat.getDrawable(
+                    itemView.resources,
+                    R.drawable.ic_baseline_verification_failed_24,
+                    null
+                )
+                else -> null
+            }
+            callerNumberView.setCompoundDrawablesRelativeWithIntrinsicBounds(
+                null,
+                null,
+                drawable,
+                null
+            )
+
             screenedAtView.text = DateUtils.getRelativeDateTimeString(
                 itemView.context,
                 history.receivedAt,

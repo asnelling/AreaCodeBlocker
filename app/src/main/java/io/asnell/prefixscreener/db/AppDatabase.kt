@@ -5,6 +5,7 @@ import androidx.room.AutoMigration
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import io.asnell.prefixscreener.BuildConfig
 
 @Database(
     entities = [Prefix::class, History::class],
@@ -27,8 +28,12 @@ abstract class AppDatabase : RoomDatabase() {
                     context.applicationContext,
                     AppDatabase::class.java,
                     "prefix_screener.db"
-                )
-                    .build()
+                ).run {
+                    if (BuildConfig.DEBUG) {
+                        createFromAsset("sample.db")
+                    }
+                    build()
+                }
                 INSTANCE = instance
                 instance
             }

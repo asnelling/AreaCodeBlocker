@@ -23,5 +23,8 @@
     <string name="history_empty">History is empty</string>
     <string name="tab_blacklist">Blacklist</string>
     <string name="tab_history">History</string>
+    <string name="verification_status_not_verified">Not verified</string>
+    <string name="verification_status_passed">Verification passed</string>
+    <string name="verification_status_failed">Verification failed</string>
 
 </resources>
