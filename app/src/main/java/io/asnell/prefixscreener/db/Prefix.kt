@@ -10,9 +10,9 @@ data class Prefix(
     @PrimaryKey(autoGenerate = true)
     val id: Int? = null,
 
-    val action: Action? = Action.DISALLOW,
+    val action: Action = Action.DISALLOW,
 )
 
 enum class Action {
-    DISALLOW, REJECT, SILENCE
+    DISALLOW, REJECT, SILENCE, ALLOW
 }
