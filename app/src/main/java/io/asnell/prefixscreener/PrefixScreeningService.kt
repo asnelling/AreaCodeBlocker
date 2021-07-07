@@ -49,7 +49,6 @@ class PrefixScreeningService : CallScreeningService() {
 
             respondToCall(callDetails, response.build())
 
-            Log.i(TAG, "call from: $callerNumber - screening result: $selectedAction")
             val verificationStatus =
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
                     callDetails.callerNumberVerificationStatus
