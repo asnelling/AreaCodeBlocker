@@ -1,13 +1,16 @@
 package io.asnell.prefixscreener
 
 import androidx.annotation.WorkerThread
-import io.asnell.prefixscreener.db.Prefix
 import io.asnell.prefixscreener.db.AppDatabase
 import io.asnell.prefixscreener.db.History
+import io.asnell.prefixscreener.db.Prefix
 import kotlinx.coroutines.flow.Flow
 
 class Repository(private val database: AppDatabase) {
     val allPrefixes: Flow<List<Prefix>> = database.prefixDao().getPrefixes()
+
+    fun matchingPrefixes(number: String): Flow<List<Prefix>> =
+        database.prefixDao().getMatching(number)
 
     val allHistory: Flow<List<History>> = database.historyDao().getHistory()
 

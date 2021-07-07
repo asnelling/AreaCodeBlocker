@@ -4,7 +4,6 @@ import android.os.Build
 import android.telecom.Call
 import android.telecom.Call.Details.DIRECTION_INCOMING
 import android.telecom.CallScreeningService
-import android.util.Log
 import io.asnell.prefixscreener.db.Action
 import io.asnell.prefixscreener.db.History
 import kotlinx.coroutines.flow.first
@@ -25,16 +24,13 @@ class PrefixScreeningService : CallScreeningService() {
         val callerNumber = callDetails.handle.schemeSpecificPart
 
         app.applicationScope.launch {
-            var selectedAction = Action.ALLOW
             val response = CallResponse.Builder()
-            val prefixes = app.repository.allPrefixes.first()
-
-            for ((number, _, action) in prefixes) {
-                if (callerNumber.startsWith(number)) {
-                    selectedAction = action
-                    break
-                }
-            }
+            val selectedAction = app.repository.matchingPrefixes(callerNumber)
+                .first()
+                .firstOrNull()
+                ?.let { prefix ->
+                    prefix.action
+                } ?: Action.ALLOW
 
             when (selectedAction) {
                 Action.DISALLOW -> response.setDisallowCall(true)
