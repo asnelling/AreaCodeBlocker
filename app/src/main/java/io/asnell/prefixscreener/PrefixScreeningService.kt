@@ -25,34 +25,31 @@ class PrefixScreeningService : CallScreeningService() {
         val callerNumber = callDetails.handle.schemeSpecificPart
 
         app.applicationScope.launch {
-            var result = "allow"
+            var selectedAction = Action.ALLOW
             val response = CallResponse.Builder()
             val prefixes = app.repository.allPrefixes.first()
 
             for ((number, _, action) in prefixes) {
                 if (callerNumber.startsWith(number)) {
-                    when (action) {
-                        Action.DISALLOW -> {
-                            response.setDisallowCall(true)
-                            result = Action.DISALLOW.name
-                        }
-                        Action.REJECT -> {
-                            response.setDisallowCall(true)
-                            response.setRejectCall(true)
-                            result = Action.REJECT.name
-                        }
-                        Action.SILENCE -> {
-                            response.setSilenceCall(true)
-                            result = Action.SILENCE.name
-                        }
-                    }
+                    selectedAction = action
                     break
+                }
+            }
+
+            when (selectedAction) {
+                Action.DISALLOW -> response.setDisallowCall(true)
+                Action.REJECT -> {
+                    response.setDisallowCall(true)
+                    response.setRejectCall(true)
+                }
+                Action.SILENCE -> response.setSilenceCall(true)
+                Action.ALLOW -> {
                 }
             }
 
             respondToCall(callDetails, response.build())
 
-            Log.i(TAG, "call from: $callerNumber - screening result: $result")
+            Log.i(TAG, "call from: $callerNumber - screening result: $selectedAction")
             val verificationStatus =
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
                     callDetails.callerNumberVerificationStatus
@@ -64,7 +61,7 @@ class PrefixScreeningService : CallScreeningService() {
                 History(
                     callDetails.creationTimeMillis,
                     callerNumber,
-                    result,
+                    selectedAction.name,
                     verificationStatus,
                 )
             )

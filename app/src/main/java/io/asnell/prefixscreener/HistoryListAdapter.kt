@@ -89,7 +89,7 @@ class HistoryListAdapter :
                         contentDescription =
                             itemView.resources.getString(R.string.history_silenced)
                     }
-                    "allow" -> {
+                    Action.ALLOW.name -> {
                         setImageResource(R.drawable.ic_baseline_call_received_24)
                         contentDescription =
                             itemView.resources.getString(R.string.history_allowed)
