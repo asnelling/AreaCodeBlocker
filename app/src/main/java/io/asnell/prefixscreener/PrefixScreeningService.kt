@@ -24,26 +24,13 @@ class PrefixScreeningService : CallScreeningService() {
         val callerNumber = callDetails.handle.schemeSpecificPart
 
         app.applicationScope.launch {
-            val response = CallResponse.Builder()
             val selectedAction = app.repository.matchingPrefixes(callerNumber)
                 .first()
-                .firstOrNull()
-                ?.let { prefix ->
-                    prefix.action
-                } ?: Action.ALLOW
+                .firstOrNull()?.action ?: Action.ALLOW
 
-            when (selectedAction) {
-                Action.DISALLOW -> response.setDisallowCall(true)
-                Action.REJECT -> {
-                    response.setDisallowCall(true)
-                    response.setRejectCall(true)
-                }
-                Action.SILENCE -> response.setSilenceCall(true)
-                Action.ALLOW -> {
-                }
-            }
+            val response = selectedAction.makeResponse()
 
-            respondToCall(callDetails, response.build())
+            respondToCall(callDetails, response)
 
             val verificationStatus =
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
@@ -56,7 +43,7 @@ class PrefixScreeningService : CallScreeningService() {
                 History(
                     callDetails.creationTimeMillis,
                     callerNumber,
-                    selectedAction.name,
+                    selectedAction,
                     verificationStatus,
                 )
             )

@@ -8,7 +8,7 @@ import androidx.room.PrimaryKey
 data class History(
     val receivedAt: Long,
     val callerNumber: String,
-    val result: String,
+    val result: Action,
 
     @ColumnInfo(defaultValue = "0")
     val callerNumberVerificationStatus: Int,

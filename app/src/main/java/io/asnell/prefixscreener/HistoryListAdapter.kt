@@ -72,30 +72,7 @@ class HistoryListAdapter :
                 DateUtils.FORMAT_NO_MONTH_DAY
             )
 
-            screenedActionIcon.apply {
-                when (history.result) {
-                    Action.DISALLOW.name -> {
-                        setImageResource(R.drawable.ic_baseline_block_24)
-                        contentDescription =
-                            itemView.resources.getString(R.string.history_disallowed)
-                    }
-                    Action.REJECT.name -> {
-                        setImageResource(R.drawable.ic_baseline_phone_missed_24)
-                        contentDescription =
-                            itemView.resources.getString(R.string.history_rejected)
-                    }
-                    Action.SILENCE.name -> {
-                        setImageResource(R.drawable.ic_baseline_notifications_off_24)
-                        contentDescription =
-                            itemView.resources.getString(R.string.history_silenced)
-                    }
-                    Action.ALLOW.name -> {
-                        setImageResource(R.drawable.ic_baseline_call_received_24)
-                        contentDescription =
-                            itemView.resources.getString(R.string.history_allowed)
-                    }
-                }
-            }
+            history.result.setupIcon(screenedActionIcon)
         }
 
         companion object {
