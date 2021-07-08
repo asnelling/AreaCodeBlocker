@@ -66,4 +66,11 @@ class PrefixDaoTest {
         assertEquals(prefix1, prefixList[0])
         assertEquals(prefix3, prefixList[1])
     }
+
+    @Test
+    fun testInsert() = runBlocking {
+        prefixDao.insert(Prefix("+188899", 4, Action.REJECT))
+        val count = prefixDao.getPrefixes().first().size
+        assertEquals(4, count)
+    }
 }
