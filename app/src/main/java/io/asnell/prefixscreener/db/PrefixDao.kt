@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface PrefixDao {
-    @Query("SELECT * FROM Prefix")
+    @Query("SELECT * FROM Prefix ORDER BY number")
     fun getPrefixes(): Flow<List<Prefix>>
 
     @Query("SELECT * FROM Prefix WHERE instr(:callerNumber, number) > 0 ORDER BY length(number) DESC")
