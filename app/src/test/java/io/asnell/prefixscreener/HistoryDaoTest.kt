@@ -22,11 +22,11 @@ class HistoryDaoTest {
     private lateinit var historyDao: HistoryDao
 
     private val history1 =
-        History(1625715555555, "+13334445555", Action.SILENCE, 0)
+        History(1625715555555, "+13334445555", Action.SILENCE, 0, 1)
     private val history2 =
-        History(1625717777777, "+15557778888", Action.REJECT, 0)
+        History(1625717777777, "+15557778888", Action.REJECT, 0, 2)
     private val history3 =
-        History(1625713333333, "+12223334444", Action.DISALLOW, 1)
+        History(1625713333333, "+12223334444", Action.DISALLOW, 1, 3)
 
     @Before
     fun createDb() = runBlocking {
