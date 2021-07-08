@@ -12,4 +12,7 @@ interface HistoryDao {
 
     @Query("SELECT * FROM History ORDER BY receivedAt DESC")
     fun getHistory(): Flow<List<History>>
+
+    @Insert
+    suspend fun insertAll(vararg historyEntries: History)
 }
