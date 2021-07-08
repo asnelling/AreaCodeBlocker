@@ -2,7 +2,7 @@ package io.asnell.prefixscreener
 
 import io.asnell.prefixscreener.db.Action
 import io.asnell.prefixscreener.db.History
-import junit.framework.Assert.assertEquals
+import org.junit.Assert.assertEquals
 import org.junit.Test
 
 class HistoryTest {

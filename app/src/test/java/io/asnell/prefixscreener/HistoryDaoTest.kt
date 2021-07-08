@@ -8,10 +8,10 @@ import io.asnell.prefixscreener.db.Action
 import io.asnell.prefixscreener.db.AppDatabase
 import io.asnell.prefixscreener.db.History
 import io.asnell.prefixscreener.db.HistoryDao
-import junit.framework.Assert.assertEquals
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
 import org.junit.After
+import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
