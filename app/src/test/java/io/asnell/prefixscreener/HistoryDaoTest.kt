@@ -21,14 +21,18 @@ class HistoryDaoTest {
     private lateinit var db: AppDatabase
     private lateinit var historyDao: HistoryDao
 
-    private val history1 = History(1625715555555, "+13334445555", Action.SILENCE, 0)
-    private val history2 = History(1625717777777, "+15557778888", Action.REJECT, 0)
-    private val history3 = History(1625713333333, "+12223334444", Action.DISALLOW, 1)
+    private val history1 =
+        History(1625715555555, "+13334445555", Action.SILENCE, 0)
+    private val history2 =
+        History(1625717777777, "+15557778888", Action.REJECT, 0)
+    private val history3 =
+        History(1625713333333, "+12223334444", Action.DISALLOW, 1)
 
     @Before
     fun createDb() = runBlocking {
         val context = ApplicationProvider.getApplicationContext<Context>()
-        db = Room.inMemoryDatabaseBuilder(context, AppDatabase::class.java).build()
+        db = Room.inMemoryDatabaseBuilder(context, AppDatabase::class.java)
+            .build()
         historyDao = db.historyDao()
 
         historyDao.insertAll(history1, history2, history3)
@@ -52,7 +56,14 @@ class HistoryDaoTest {
 
     @Test
     fun testInsert() = runBlocking {
-        historyDao.insert(History(1625722222222, "+19998887777", Action.REJECT, 0))
+        historyDao.insert(
+            History(
+                1625722222222,
+                "+19998887777",
+                Action.REJECT,
+                0
+            )
+        )
         val count = historyDao.getHistory().first().size
         assertEquals(4, count)
     }

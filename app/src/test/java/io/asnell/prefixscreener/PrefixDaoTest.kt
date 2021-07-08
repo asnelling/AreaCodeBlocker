@@ -28,7 +28,8 @@ class PrefixDaoTest {
     @Before
     fun createDb() = runBlocking {
         val context = ApplicationProvider.getApplicationContext<Context>()
-        db = Room.inMemoryDatabaseBuilder(context, AppDatabase::class.java).build()
+        db = Room.inMemoryDatabaseBuilder(context, AppDatabase::class.java)
+            .build()
         prefixDao = db.prefixDao()
 
         prefixDao.insertAll(prefix1, prefix2, prefix3)
