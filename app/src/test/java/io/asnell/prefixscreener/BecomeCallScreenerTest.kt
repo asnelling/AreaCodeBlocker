@@ -1,9 +1,9 @@
 package io.asnell.prefixscreener
 
 import android.app.Activity
-import android.app.role.RoleManager
+import android.content.Context
+import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import androidx.test.platform.app.InstrumentationRegistry
 import org.junit.Assert
 import org.junit.Assert.assertEquals
 import org.junit.Test
@@ -13,7 +13,7 @@ import org.junit.runner.RunWith
 class BecomeCallScreenerTest {
     @Test
     fun testCreateIntent() {
-        val context = InstrumentationRegistry.getInstrumentation().targetContext
+        val context = ApplicationProvider.getApplicationContext<Context>()
         val intent = BecomeCallScreener().createIntent(context, null)
         assertEquals("android.app.role.action.REQUEST_ROLE", intent.action)
     }
@@ -23,6 +23,7 @@ class BecomeCallScreenerTest {
         val bcs = BecomeCallScreener()
         assert(bcs.parseResult(Activity.RESULT_OK, null))
     }
+
     @Test
     fun parseResult_nonOkResult_returnsFalse() {
         val bcs = BecomeCallScreener()
