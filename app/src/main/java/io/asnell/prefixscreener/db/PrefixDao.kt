@@ -17,6 +17,9 @@ interface PrefixDao {
     @Insert
     suspend fun insert(prefix: Prefix)
 
+    @Insert
+    suspend fun insertAll(vararg prefixes: Prefix)
+
     @Delete
     suspend fun delete(prefix: Prefix)
 }
