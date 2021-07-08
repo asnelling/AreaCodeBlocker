@@ -49,9 +49,9 @@ class HistoryDaoTest {
         assertEquals(3, historyList.size)
 
         // history should be sorted by time
-        assertEquals(history3, historyList[0])
+        assertEquals(history2, historyList[0])
         assertEquals(history1, historyList[1])
-        assertEquals(history2, historyList[2])
+        assertEquals(history3, historyList[2])
     }
 
     @Test
